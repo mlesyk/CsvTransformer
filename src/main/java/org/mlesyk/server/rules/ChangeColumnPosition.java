@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by Maks on 24.08.2017.
  */
-public class ChangeColumnOrder extends AbstractRule {
+public class ChangeColumnPosition extends AbstractRule {
 
     private int currentPosition;
     private int newPosition;
@@ -17,7 +17,7 @@ public class ChangeColumnOrder extends AbstractRule {
     // this Rule changes document structure, should be applied once
     private boolean applied;
 
-    public ChangeColumnOrder(ResultColumn column, int newPosition, List<ResultColumn> columns) {
+    public ChangeColumnPosition(ResultColumn column, int newPosition, List<ResultColumn> columns) {
         this.currentPosition = column.getId();
         this.newPosition = newPosition;
         this.columns = columns;
