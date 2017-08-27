@@ -4,6 +4,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mlesyk.server.ResultColumn;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -48,7 +55,8 @@ public class DeleteTest extends AbstractRuleTest {
         Assert.assertEquals(deleteColumn(deletePosition, csvDataResult), true);
     }
 
-    private boolean deleteColumn(int deletePosition, String[] csvDataResult) {
-        return false;
+    private boolean deleteColumn(int deletePosition, String[] expectedResult) {
+        ResultColumn column = manager.getOutputColumns().get(deletePosition);
+        return this.testRule(new Delete(column), column, expectedResult);
     }
 }

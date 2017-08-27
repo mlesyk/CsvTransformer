@@ -26,7 +26,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
 
         //https://stackoverflow.com/questions/442747/getting-the-name-of-the-currently-executing-method
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnOrder(currentPosition, newPosition, csvDataResult), true);
+        Assert.assertEquals(changeColumnPosition(currentPosition, newPosition, csvDataResult), true);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         int newPosition = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnOrder(currentPosition, newPosition, csvDataResult), true);
+        Assert.assertEquals(changeColumnPosition(currentPosition, newPosition, csvDataResult), true);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         int newPosition = 2;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnOrder(currentPosition,newPosition,csvDataResult), true);
+        Assert.assertEquals(changeColumnPosition(currentPosition,newPosition,csvDataResult), true);
     }
 
     @Test
@@ -65,28 +65,12 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         int newPosition = 1;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnOrder(currentPosition,newPosition,csvDataResult), true);
+        Assert.assertEquals(changeColumnPosition(currentPosition,newPosition,csvDataResult), true);
     }
 
-    private boolean changeColumnOrder(int currentPosition, int newPosition, String[] expectedResult) {
-        boolean result = true;
+    private boolean changeColumnPosition(int currentPosition, int newPosition, String[] expectedResult) {
         ResultColumn column = manager.getOutputColumns().get(currentPosition);
-        column.addRule(new ChangeColumnPosition(column, newPosition, manager.getOutputColumns()));
-        manager.writeOutputFile();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(manager.getOutputFilePath()))) {
-            for(int i = 0; i < expectedResult.length; i++) {
-                String[] resultLine = reader.readLine().split(",");
-                String[] testLine = expectedResult[i].split(",");
-                System.out.println(Arrays.toString(resultLine));
-                for(int j = 0; j < testLine.length; j++) {
-                    if(!testLine[j].equals(resultLine[j])) {
-                        result = false;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+        return this.testRule(new ChangeColumnPosition(column, newPosition, manager.getOutputColumns()),
+                column,expectedResult);
     }
 }

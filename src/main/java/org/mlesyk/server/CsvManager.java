@@ -1,5 +1,7 @@
 package org.mlesyk.server;
 
+import org.mlesyk.server.rules.Delete;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -88,7 +90,11 @@ public class CsvManager {
                 }
         );
         outputColumns.forEach(ResultColumn::applyAllRules);
-        return outputColumns.stream().sorted().map(ResultColumn::getData).collect(Collectors.joining(","));
+        return outputColumns.stream()
+                .filter(resultColumn -> resultColumn.getId() != Delete.DELETED)
+                .sorted()
+                .map(ResultColumn::getData)
+                .collect(Collectors.joining(","));
     }
 
     public String getOutputFilePath() {
