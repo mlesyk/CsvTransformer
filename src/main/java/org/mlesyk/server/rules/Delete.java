@@ -19,6 +19,9 @@ public class Delete extends AbstractRule {
 
     @Override
     public void apply() {
-        column.setId(DELETED);
+        if (!applied) {
+            column.setId(DELETED);
+            applied = true;
+        }
     }
 }
