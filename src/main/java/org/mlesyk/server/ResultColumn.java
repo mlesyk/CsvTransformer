@@ -39,6 +39,11 @@ public class ResultColumn implements Comparable {
         this.data = data;
     }
 
+    public ResultColumn joinData(String data) {
+        this.data = new StringBuilder().append(this.data).append(" ").append(data).toString();
+        return this;
+    }
+
     public static void setCounter(int counter) {
         ResultColumn.counter = counter;
     }

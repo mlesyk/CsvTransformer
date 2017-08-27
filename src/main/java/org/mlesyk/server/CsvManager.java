@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -91,8 +94,14 @@ public class CsvManager {
         );
         outputColumns.forEach(ResultColumn::applyAllRules);
         return outputColumns.stream()
-                .filter(resultColumn -> resultColumn.getId() != Delete.DELETED)
-                .sorted()
+                .filter(resultColumn -> resultColumn.getId() != Delete.DELETED) // Delete
+                .collect(Collectors.groupingBy(ResultColumn::getId, //MergeColumns
+                        Collectors.collectingAndThen(Collectors.reducing((a,b) ->
+                                a.getSourceFileColumnId() > b.getSourceFileColumnId() ? b.joinData(a.getData()): a.joinData(b.getData())
+                        ), Optional::get)))
+                .values()
+                .stream()
+                .sorted() // sorted ofder of colimns by id
                 .map(ResultColumn::getData)
                 .collect(Collectors.joining(","));
     }
@@ -105,4 +114,9 @@ public class CsvManager {
         return outputColumns;
     }
 
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 }
