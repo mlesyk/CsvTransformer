@@ -57,6 +57,6 @@ public class DeleteTest extends AbstractRuleTest {
 
     private boolean deleteColumn(int deletePosition, String[] expectedResult) {
         ResultColumn column = manager.getOutputColumns().get(deletePosition);
-        return this.testRule(new Delete(column), column, expectedResult);
+        return this.testRule(new Delete(deletePosition, manager.getOutputColumns()), column, expectedResult);
     }
 }

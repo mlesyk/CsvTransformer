@@ -50,6 +50,6 @@ public class RegexFilterTest extends AbstractRuleTest {
 
     private boolean applyRegex(int columnPosition, String regex, String[] expectedResult) {
         ResultColumn column = manager.getOutputColumns().get(columnPosition);
-        return this.testRule(new RegexFilter(column, regex), column, expectedResult);
+        return this.testRule(new RegexFilter(columnPosition, regex, manager.getOutputColumns()), column, expectedResult);
     }
 }

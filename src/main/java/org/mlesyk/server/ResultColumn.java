@@ -31,6 +31,13 @@ public class ResultColumn implements Comparable {
         counter++;
     }
 
+    public ResultColumn(ResultColumn source) {
+        rules = new ArrayList<AbstractRule>();
+        this.id = source.id + 1;
+        this.sourceFileColumnId = source.sourceFileColumnId;
+        this.data = source.data;
+    }
+
     public String getData() {
         return data;
     }

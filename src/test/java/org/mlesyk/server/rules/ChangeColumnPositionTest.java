@@ -70,7 +70,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
 
     private boolean changeColumnPosition(int currentPosition, int newPosition, String[] expectedResult) {
         ResultColumn column = manager.getOutputColumns().get(currentPosition);
-        return this.testRule(new ChangeColumnPosition(column, newPosition, manager.getOutputColumns()),
+        return this.testRule(new ChangeColumnPosition(currentPosition, newPosition, manager.getOutputColumns()),
                 column,expectedResult);
     }
 }

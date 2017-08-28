@@ -52,8 +52,8 @@ public class MergeColumnsTest extends AbstractRuleTest {
 
     private boolean mergeColumn(int firstColumnId, int secondColumnId, String[] expectedResult) {
         ResultColumn firstColumn = manager.getOutputColumns().get(firstColumnId);
-        ResultColumn secondColumn = manager.getOutputColumns().get(secondColumnId);
-        return this.testRule(new MergeColumns(firstColumn, secondColumn), firstColumn, expectedResult);
+        return this.testRule(new MergeColumns(firstColumnId, secondColumnId, manager.getOutputColumns()),
+                firstColumn, expectedResult);
     }
 
 

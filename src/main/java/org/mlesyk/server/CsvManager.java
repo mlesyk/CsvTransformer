@@ -92,7 +92,10 @@ public class CsvManager {
                     }
                 }
         );
-        outputColumns.forEach(ResultColumn::applyAllRules);
+        for(int i = 0; i < outputColumns.size(); i ++) {  //used simple iteration
+            outputColumns.get(i).applyAllRules();         //to be able add new columns
+                                                          // without ConcurrentModificationException
+        }
         return outputColumns.stream()
                 .filter(resultColumn -> resultColumn.getId() != Delete.DELETED) // Delete
                 .collect(Collectors.groupingBy(ResultColumn::getId, //MergeColumns

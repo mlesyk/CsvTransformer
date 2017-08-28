@@ -17,8 +17,8 @@ public class ChangeColumnPosition extends AbstractRule {
     // this Rule changes document structure, should be applied once
     private boolean applied;
 
-    public ChangeColumnPosition(ResultColumn column, int newPosition, List<ResultColumn> columns) {
-        this.currentPosition = column.getId();
+    public ChangeColumnPosition(int currentPosition, int newPosition, List<ResultColumn> columns) {
+        this.currentPosition = currentPosition;
         this.newPosition = newPosition;
         this.columns = columns;
         this.applied = false;
