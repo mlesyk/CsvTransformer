@@ -9,7 +9,6 @@ import java.util.List;
  * Created by Maks on 24.08.2017.
  */
 public class MathFilter extends AbstractRule {
-    public static final int SKIP_ROW = -2;
 
     private List<ResultColumn> columns;
     private int columnId;
