@@ -1,18 +1,8 @@
 package org.mlesyk.server.rules;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mlesyk.server.ResultColumn;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Maks on 27.08.2017.

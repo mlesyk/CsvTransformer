@@ -3,7 +3,6 @@ package org.mlesyk.server.rules;
 import org.mlesyk.server.ResultColumn;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Maks on 24.08.2017.

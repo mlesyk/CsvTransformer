@@ -9,11 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by Maks on 26.08.2017.
@@ -56,7 +52,7 @@ public class CsvManager {
             // counter should be cleared on each new file processing
             // TODO: implement better approach
             ResultColumn.setCounter(0);
-            for(int i = 0; i < line.split(",").length; i++) {
+            for (int i = 0; i < line.split(",").length; i++) {
                 outputColumns.add(new ResultColumn());
             }
         } catch (IOException e) {
@@ -65,18 +61,16 @@ public class CsvManager {
     }
 
     public void writeOutputFile() {
-        try (Stream<String> stream = Files.lines(Paths.get(inputFilePath));
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(inputFilePath));
              BufferedWriter writer = Files.newBufferedWriter(Paths.get(outputFilePath))
         ) {
-            stream.limit(5).forEach(line -> {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
                 line = this.applyRules(line);
-                //https://stackoverflow.com/questions/29856100/how-to-handle-ioexception-in-iterable-foreach
-                try {
+                if (!line.equals("")) {
                     writer.write(line + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,21 +86,25 @@ public class CsvManager {
                     }
                 }
         );
-        for(int i = 0; i < outputColumns.size(); i ++) {  //used simple iteration
+        for (int i = 0; i < outputColumns.size(); i++) {  //used simple iteration
             outputColumns.get(i).applyAllRules();         //to be able add new columns
-                                                          // without ConcurrentModificationException
+                                                            // without ConcurrentModificationException
         }
-        return outputColumns.stream()
-                .filter(resultColumn -> resultColumn.getId() != Delete.DELETED) // Delete
-                .collect(Collectors.groupingBy(ResultColumn::getId, //MergeColumns
-                        Collectors.collectingAndThen(Collectors.reducing((a,b) ->
-                                a.getSourceFileColumnId() > b.getSourceFileColumnId() ? b.joinData(a.getData()): a.joinData(b.getData())
-                        ), Optional::get)))
-                .values()
-                .stream()
-                .sorted() // sorted ofder of colimns by id
-                .map(ResultColumn::getData)
-                .collect(Collectors.joining(","));
+        if (outputColumns.stream().anyMatch(ResultColumn::isSkipRow)) {
+            return ""; // MathFilter
+        } else {
+            return outputColumns.stream()
+                    .filter(resultColumn -> resultColumn.getId() != Delete.DELETED) // Delete
+                    .collect(Collectors.groupingBy(ResultColumn::getId, //MergeColumns
+                            Collectors.collectingAndThen(Collectors.reducing((a, b) ->
+                                    a.getSourceFileColumnId() > b.getSourceFileColumnId() ? b.joinData(a.getData()) : a.joinData(b.getData())
+                            ), Optional::get)))
+                    .values()
+                    .stream()
+                    .sorted() // sorted order of columns by id
+                    .map(ResultColumn::getData)
+                    .collect(Collectors.joining(","));
+        }
     }
 
     public String getOutputFilePath() {
@@ -115,11 +113,5 @@ public class CsvManager {
 
     public List<ResultColumn> getOutputColumns() {
         return outputColumns;
-    }
-
-    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
-    {
-        Map<Object, Boolean> map = new ConcurrentHashMap<>();
-        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 }

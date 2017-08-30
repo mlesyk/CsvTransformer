@@ -1,11 +1,9 @@
 package org.mlesyk.server.rules;
 
-import com.sun.xml.internal.txw2.output.ResultFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mlesyk.server.ResultColumn;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by Maks on 27.08.2017.

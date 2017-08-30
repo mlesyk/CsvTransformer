@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.mlesyk.server.ResultColumn;
 import org.mlesyk.server.utils.MathUtil;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Maks on 29.08.2017.
  */

@@ -4,7 +4,6 @@ import org.mlesyk.server.ResultColumn;
 import org.mlesyk.server.utils.MathUtil;
 
 import java.util.List;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 /**
  * Created by Maks on 24.08.2017.

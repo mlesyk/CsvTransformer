@@ -4,12 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mlesyk.server.ResultColumn;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-
 /**
  * Created by Maks on 26.08.2017.
  */

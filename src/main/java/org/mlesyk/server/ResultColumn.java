@@ -3,9 +3,7 @@ package org.mlesyk.server;
 import org.mlesyk.server.rules.AbstractRule;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Created by Maks on 24.08.2017.
@@ -19,6 +17,8 @@ public class ResultColumn implements Comparable {
 
     private static int counter;
 
+    private boolean skipRow;
+
     // filled with data in cell when iterating each row
     private String data;
 
@@ -29,6 +29,7 @@ public class ResultColumn implements Comparable {
         id = counter;
         sourceFileColumnId = counter;
         counter++;
+        skipRow = false;
     }
 
     public ResultColumn(ResultColumn source) {
@@ -36,6 +37,20 @@ public class ResultColumn implements Comparable {
         this.id = source.id + 1;
         this.sourceFileColumnId = source.sourceFileColumnId;
         this.data = source.data;
+        skipRow = false;
+    }
+
+    public boolean isSkipRow() {
+        if(skipRow) { // should work only for one row (single iteration)
+            this.skipRow = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setSkipRow(boolean skipRow) {
+        this.skipRow = skipRow;
     }
 
     public String getData() {
@@ -80,9 +95,6 @@ public class ResultColumn implements Comparable {
     }
 
     public void applyAllRules() {
-//        while(!rules.isEmpty()){
-//            rules.poll().apply();
-//        }
         for(AbstractRule rule: rules) {
             rule.apply();
         }
