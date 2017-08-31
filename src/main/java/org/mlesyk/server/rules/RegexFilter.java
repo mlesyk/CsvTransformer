@@ -1,6 +1,7 @@
 package org.mlesyk.server.rules;
 
 import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.utils.RegexUtil;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,11 +16,20 @@ public class RegexFilter extends AbstractRule {
     List<ResultColumn> columns;
     private Pattern pattern;
     private Matcher matcher;
+    private int searchType;
 
     public RegexFilter(int columnPosition, String pattern, List<ResultColumn> columns) {
+        this.searchType = RegexUtil.REGEX;
         this.columnPosition = columnPosition;
         this.columns = columns;
-        this.pattern = Pattern.compile(pattern);
+        this.pattern = RegexUtil.search(this.searchType, pattern);
+    }
+
+    public RegexFilter(int columnPosition, int searchType, String searchData, List<ResultColumn> columns) {
+        this.searchType = searchType;
+        this.columnPosition = columnPosition;
+        this.columns = columns;
+        this.pattern = RegexUtil.search(this.searchType, searchData);
     }
 
     @Override
@@ -27,6 +37,9 @@ public class RegexFilter extends AbstractRule {
         ResultColumn column = columns.get(columnPosition);
         matcher = pattern.matcher(column.getData());
         String data = matcher.find() ? matcher.group(): "";
+        if(data.equals("")) {
+            column.setSkipRow(true);
+        }
         column.setData(data);
     }
 }
