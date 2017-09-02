@@ -10,18 +10,17 @@ import java.util.List;
 public class Clone extends AbstractRule {
 
     private List<ResultColumn> columns;
-    int columnId;
-
     private boolean applied = false;
 
     public Clone(int columnId, List<ResultColumn> columns) {
-        this.columnId = columnId;
+        columnIds = new int[1];
+        this.columnIds[0] = columnId;
         this.columns = columns;
     }
 
     @Override
     public void apply() {
-        ResultColumn column = columns.get(columnId);
+        ResultColumn column = columns.get(columnIds[0]);
         if(!applied) {
             ResultColumn clone = new ResultColumn(column);
             for (int i = column.getId() + 1; i < columns.size(); i++) {

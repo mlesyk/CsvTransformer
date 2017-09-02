@@ -5,7 +5,9 @@ package org.mlesyk.server.rules;
  */
 public abstract class AbstractRule {
     // rules are applied in order they were added
-    int id;
+    protected int id;
+    // id of columns for rules
+    protected int[] columnIds;
 
     public int getId() {
         return id;
@@ -13,6 +15,14 @@ public abstract class AbstractRule {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int[] getColumnsId() {
+        return columnIds;
+    }
+
+    public void setColumnIds(int[] columnIds) {
+        this.columnIds = columnIds;
     }
 
     public abstract void apply();

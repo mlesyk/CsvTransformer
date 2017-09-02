@@ -12,19 +12,18 @@ public class Delete extends AbstractRule {
 
     // this Rule changes document structure, should be applied once
     private boolean applied;
-    private int columnPosition;
     List<ResultColumn> columns;
-    private ResultColumn column;
 
     public Delete(int columnPosition, List<ResultColumn> columns) {
         this.columns = columns;
-        this.columnPosition = columnPosition;
+        columnIds = new int[1];
+        this.columnIds[0] = columnPosition;
     }
 
     @Override
     public void apply() {
         if (!applied) {
-            column = columns.get(columnPosition);
+            ResultColumn column = columns.get(columnIds[0]);
             column.setId(DELETED);
             applied = true;
         }

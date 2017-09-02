@@ -11,12 +11,12 @@ import java.util.List;
 public class MathFilter extends AbstractRule {
 
     private List<ResultColumn> columns;
-    private int columnId;
     private String condition;
-    double conditionValue;
+    private double conditionValue;
 
     public MathFilter(int columnId, String condition, double conditionValue, List<ResultColumn> columns) {
-        this.columnId = columnId;
+        columnIds = new int[1];
+        this.columnIds[0] = columnId;
         this.columns = columns;
         this.condition = condition;
         this.conditionValue = conditionValue;
@@ -24,7 +24,7 @@ public class MathFilter extends AbstractRule {
 
     @Override
     public void apply() {
-        ResultColumn column = columns.get(columnId);
+        ResultColumn column = columns.get(columnIds[0]);
         try {
             double columnValue = Double.parseDouble(column.getData());
             column.setSkipRow(!MathUtil.filter(columnValue, conditionValue, condition));

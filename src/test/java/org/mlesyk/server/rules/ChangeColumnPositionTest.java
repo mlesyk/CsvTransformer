@@ -62,9 +62,9 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         Assert.assertEquals(changeColumnPosition(currentPosition,newPosition,csvDataResult), true);
     }
 
-    private boolean changeColumnPosition(int currentPosition, int newPosition, String[] expectedResult) {
+    protected boolean changeColumnPosition(int currentPosition, int newPosition, String[] expectedResult, AbstractRule... rules) {
         ResultColumn column = manager.getOutputColumns().get(currentPosition);
         return this.testRule(new ChangeColumnPosition(currentPosition, newPosition, manager.getOutputColumns()),
-                column,expectedResult);
+                column,expectedResult, rules);
     }
 }
