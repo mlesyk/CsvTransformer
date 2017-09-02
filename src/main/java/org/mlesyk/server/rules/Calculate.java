@@ -14,14 +14,15 @@ public class Calculate extends AbstractRule {
     private int firstColumnId;
     private int secondColumnId;
     private String operation;
-
+    private AbstractRule[] rules;
     private boolean applied = false;
 
-    public Calculate(int firstColumnId, int secondColumnId, String operation, List<ResultColumn> columns) {
+    public Calculate(int firstColumnId, int secondColumnId, String operation, List<ResultColumn> columns, AbstractRule... rules) {
         this.columns = columns;
         this.firstColumnId = firstColumnId;
         this.secondColumnId = secondColumnId;
         this.operation = operation;
+        this.rules = rules;
     }
 
     @Override
@@ -35,6 +36,7 @@ public class Calculate extends AbstractRule {
             ResultColumn calculatedColumn = new ResultColumn();
             calculatedColumn.setId(resultColumnId);
             calculatedColumn.setSourceFileColumnId(column1.getSourceFileColumnId());
+            calculatedColumn.addAllRules(rules);
             for (int i = resultColumnId; i < columns.size(); i++) {
                 columns.get(i).setId(i + 1);
             }

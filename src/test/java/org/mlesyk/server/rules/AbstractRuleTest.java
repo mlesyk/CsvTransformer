@@ -20,11 +20,11 @@ import static org.junit.Assert.*;
  */
 public abstract class AbstractRuleTest {
 
-    CsvManager manager;
-    File tempInput;
-    File tempOutput;
+    protected CsvManager manager;
+    protected File tempInput;
+    protected File tempOutput;
 
-    String[] csvData = {
+    protected String[] csvData = {
             "column1,column2,column3,column4",
             "data1,data2,data3,data4"
     };

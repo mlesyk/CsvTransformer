@@ -3,6 +3,7 @@ package org.mlesyk.server;
 import org.mlesyk.server.rules.AbstractRule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -103,6 +104,8 @@ public class ResultColumn implements Comparable {
     public void addRule(AbstractRule rule) {
         rules.add(rule);
     }
+
+    public void addAllRules(AbstractRule[] rules) {this.rules.addAll(Arrays.asList(rules));}
 
     @Override
     public int hashCode() {

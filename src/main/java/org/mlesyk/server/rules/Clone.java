@@ -24,17 +24,17 @@ public class Clone extends AbstractRule {
     @Override
     public void apply() {
         ResultColumn column = columns.get(columnId);
-        ResultColumn clone = new ResultColumn(column);
         if(!applied) {
+            ResultColumn clone = new ResultColumn(column);
             for (int i = column.getId() + 1; i < columns.size(); i++) {
                 columns.get(i).setId(i + 1);
             }
             columns.add(column.getId() + 1, clone);
-            for(AbstractRule rule: rules) {
-                clone.addRule(rule);
-            }
+            clone.addAllRules(rules);
             applied = true;
+        } else {
+            ResultColumn clone = columns.get(column.getId() + 1);
+            clone.setData(column.getData());
         }
-        clone.applyAllRules();
     }
 }
