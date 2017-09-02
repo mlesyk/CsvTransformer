@@ -2,13 +2,13 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 
 
 /**
  * Created by Maks on 27.08.2017.
  */
-public class MergeColumnsTest extends AbstractRuleTest {
+public class MergeColumnsTest extends AbstractRuleTestRunner {
 
     @Test
     public void testMergeSecondToFirstPosition() {
@@ -20,7 +20,7 @@ public class MergeColumnsTest extends AbstractRuleTest {
         int secondColumnId = 1;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(mergeColumn(firstColumnId, secondColumnId, csvDataResult), true);
+        Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult), true);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class MergeColumnsTest extends AbstractRuleTest {
         int secondColumnId = 3;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(mergeColumn(firstColumnId, secondColumnId, csvDataResult), true);
+        Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult), true);
     }
 
     @Test
@@ -46,15 +46,6 @@ public class MergeColumnsTest extends AbstractRuleTest {
         int secondColumnId = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(mergeColumn(firstColumnId, secondColumnId, csvDataResult), true);
+        Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult), true);
     }
-
-    private boolean mergeColumn(int firstColumnId, int secondColumnId, String[] expectedResult) {
-        ResultColumn firstColumn = manager.getOutputColumns().get(firstColumnId);
-        return this.testRule(new MergeColumns(firstColumnId, secondColumnId, manager.getOutputColumns()),
-                firstColumn, expectedResult);
-    }
-
-
-
 }

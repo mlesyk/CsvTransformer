@@ -3,13 +3,14 @@ package org.mlesyk.server.rules.integration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mlesyk.server.rules.*;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
 import org.mlesyk.server.utils.RegexUtil;
 
 /**
  * Created by Maks on 02.09.2017.
  */
-public class CalculateIntegrationTest extends CalculateTest {
+public class CalculateIntegrationTest extends AbstractRuleTestRunner {
 
     @Test
     public void testDivideThenChangePosition() {
@@ -35,7 +36,7 @@ public class CalculateIntegrationTest extends CalculateTest {
         ChangeColumnPosition positionRule = new ChangeColumnPosition(calculatedCurrentPosition, calculatedNewPosition, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.DIVIDE, csvDataResult, positionRule), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.DIVIDE, csvDataResult, positionRule), true);
     }
 
     @Test
@@ -61,7 +62,7 @@ public class CalculateIntegrationTest extends CalculateTest {
         Clone cloneRule = new Clone(calculatedCurrentPosition, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.ADD, csvDataResult, cloneRule), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.ADD, csvDataResult, cloneRule), true);
     }
 
     @Test
@@ -87,7 +88,7 @@ public class CalculateIntegrationTest extends CalculateTest {
         MathFilter mathFilterRule = new MathFilter(calculatedCurrentPosition, MathUtil.GREATER, conditionValue, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.MULTIPLY, csvDataResult, mathFilterRule), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.MULTIPLY, csvDataResult, mathFilterRule), true);
     }
 
     @Test
@@ -114,7 +115,7 @@ public class CalculateIntegrationTest extends CalculateTest {
         MergeColumns mergeRule = new MergeColumns(calculatedCurrentPosition, mergeColumnId, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.SUBTRACT, csvDataResult, mergeRule), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.SUBTRACT, csvDataResult, mergeRule), true);
     }
 
     @Test
@@ -140,6 +141,6 @@ public class CalculateIntegrationTest extends CalculateTest {
         RegexFilter regexRule = new RegexFilter(calculatedCurrentPosition, RegexUtil.BEGINS_WITH, searchData, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.MOD, csvDataResult, regexRule), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.MOD, csvDataResult, regexRule), true);
     }
 }

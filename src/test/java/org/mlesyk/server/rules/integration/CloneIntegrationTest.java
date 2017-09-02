@@ -3,12 +3,13 @@ package org.mlesyk.server.rules.integration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mlesyk.server.rules.*;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
 
 /**
  * Created by Maks on 02.09.2017.
  */
-public class CloneIntegrationTest extends CloneTest {
+public class CloneIntegrationTest extends AbstractRuleTestRunner {
 
     @Test
     public void testCloneThenRegex() {
@@ -21,7 +22,7 @@ public class CloneIntegrationTest extends CloneTest {
         RegexFilter regexRule = new RegexFilter(columnPosition + 1,regex, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition, csvDataResult, regexRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, regexRule), true);
     }
 
     @Test
@@ -33,7 +34,7 @@ public class CloneIntegrationTest extends CloneTest {
         int columnPosition = 0;
         ChangeColumnPosition positionRule = new ChangeColumnPosition(columnPosition + 1,manager.getOutputColumns().size(), manager.getOutputColumns() );
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition, csvDataResult, positionRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, positionRule), true);
     }
 
     @Test
@@ -45,7 +46,7 @@ public class CloneIntegrationTest extends CloneTest {
         int columnPosition = 0;
         MergeColumns mergeRule = new MergeColumns(columnPosition, columnPosition + 1, manager.getOutputColumns() );
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition, csvDataResult, mergeRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, mergeRule), true);
     }
 
     @Test
@@ -57,7 +58,7 @@ public class CloneIntegrationTest extends CloneTest {
         int columnPosition = 0;
         Delete deleteRule = new Delete(columnPosition, manager.getOutputColumns());
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition, csvDataResult, deleteRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, deleteRule), true);
 
     }
 
@@ -70,7 +71,7 @@ public class CloneIntegrationTest extends CloneTest {
         int columnPosition = 0;
         Clone cloneRule = new Clone(columnPosition, manager.getOutputColumns());
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition, csvDataResult, cloneRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, cloneRule), true);
 
     }
 
@@ -95,7 +96,7 @@ public class CloneIntegrationTest extends CloneTest {
         int columnPosition2 = 1;
         Calculate calculateRule = new Calculate(columnPosition1, columnPosition2, MathUtil.ADD, manager.getOutputColumns());
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition1, csvDataResult, calculateRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition1, csvDataResult, calculateRule), true);
 
     }
 
@@ -119,7 +120,7 @@ public class CloneIntegrationTest extends CloneTest {
         int conditionValue = 20;
         MathFilter mathFilterRule = new MathFilter(columnPosition, MathUtil.GREATER, conditionValue , manager.getOutputColumns());
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyClone(columnPosition, csvDataResult, mathFilterRule), true);
+        Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, mathFilterRule), true);
 
     }
 }

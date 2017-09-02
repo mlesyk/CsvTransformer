@@ -2,12 +2,12 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 
 /**
  * Created by Maks on 27.08.2017.
  */
-public class DeleteTest extends AbstractRuleTest {
+public class DeleteTest extends AbstractRuleTestRunner {
 
     @Test
     public void testDeleteFirstPosition() {
@@ -18,7 +18,7 @@ public class DeleteTest extends AbstractRuleTest {
         int deletePosition = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(deleteColumn(deletePosition, csvDataResult), true);
+        Assert.assertEquals(runDeleteTest(deletePosition, csvDataResult), true);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class DeleteTest extends AbstractRuleTest {
         int deletePosition = 3;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(deleteColumn(deletePosition, csvDataResult), true);
+        Assert.assertEquals(runDeleteTest(deletePosition, csvDataResult), true);
     }
 
     @Test
@@ -42,11 +42,6 @@ public class DeleteTest extends AbstractRuleTest {
         int deletePosition = 2;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(deleteColumn(deletePosition, csvDataResult), true);
-    }
-
-    private boolean deleteColumn(int deletePosition, String[] expectedResult) {
-        ResultColumn column = manager.getOutputColumns().get(deletePosition);
-        return this.testRule(new Delete(deletePosition, manager.getOutputColumns()), column, expectedResult);
+        Assert.assertEquals(runDeleteTest(deletePosition, csvDataResult), true);
     }
 }

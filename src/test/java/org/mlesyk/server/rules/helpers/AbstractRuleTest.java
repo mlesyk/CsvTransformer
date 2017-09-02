@@ -1,9 +1,10 @@
-package org.mlesyk.server.rules;
+package org.mlesyk.server.rules.helpers;
 
 import org.junit.After;
 import org.junit.Before;
 import org.mlesyk.server.CsvManager;
 import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.AbstractRule;
 
 import java.io.BufferedReader;
 import java.io.File;

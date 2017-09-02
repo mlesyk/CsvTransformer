@@ -2,12 +2,12 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 
 /**
  * Created by Maks on 26.08.2017.
  */
-public class ChangeColumnPositionTest extends AbstractRuleTest {
+public class ChangeColumnPositionTest extends AbstractRuleTestRunner {
 
     @Test
     public void testFirstMoveToLastPosition() {
@@ -20,7 +20,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
 
         //https://stackoverflow.com/questions/442747/getting-the-name-of-the-currently-executing-method
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnPosition(currentPosition, newPosition, csvDataResult), true);
+        Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult), true);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         int newPosition = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnPosition(currentPosition, newPosition, csvDataResult), true);
+        Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult), true);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         int newPosition = 2;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnPosition(currentPosition,newPosition,csvDataResult), true);
+        Assert.assertEquals(runChangeColumnPositionTest(currentPosition,newPosition,csvDataResult), true);
     }
 
     @Test
@@ -59,12 +59,6 @@ public class ChangeColumnPositionTest extends AbstractRuleTest {
         int newPosition = 1;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(changeColumnPosition(currentPosition,newPosition,csvDataResult), true);
-    }
-
-    protected boolean changeColumnPosition(int currentPosition, int newPosition, String[] expectedResult, AbstractRule... rules) {
-        ResultColumn column = manager.getOutputColumns().get(currentPosition);
-        return this.testRule(new ChangeColumnPosition(currentPosition, newPosition, manager.getOutputColumns()),
-                column,expectedResult, rules);
+        Assert.assertEquals(runChangeColumnPositionTest(currentPosition,newPosition,csvDataResult), true);
     }
 }

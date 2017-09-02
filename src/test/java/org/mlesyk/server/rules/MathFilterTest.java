@@ -2,13 +2,13 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
 
 /**
  * Created by Maks on 30.08.2017.
  */
-public class MathFilterTest extends AbstractRuleTest {
+public class MathFilterTest extends AbstractRuleTestRunner {
 
     @Test
     public void testGreaterCondition() {
@@ -29,7 +29,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 50;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.GREATER, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.GREATER, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 50;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.GREATER_EQUAL, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.GREATER_EQUAL, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 50;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.LESSER, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.LESSER, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.LESSER_EQUAL, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.LESSER_EQUAL, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.EQUALS, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.EQUALS, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -139,7 +139,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.EQUALS2, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.EQUALS2, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -161,7 +161,7 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.NOT_EQUALS, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.NOT_EQUALS, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -183,13 +183,6 @@ public class MathFilterTest extends AbstractRuleTest {
         double conditionValue = 500;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyMathFilter(columnId, MathUtil.NOT_EQUALS2, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.NOT_EQUALS2, conditionValue, csvDataResult), true);
     }
-
-
-    private boolean applyMathFilter(int columnId, String condition, double conditionValue, String[] expectedResult) {
-        ResultColumn column = manager.getOutputColumns().get(columnId);
-        return this.testRule(new MathFilter(columnId, condition, conditionValue, manager.getOutputColumns()), column, expectedResult);
-    }
-
 }

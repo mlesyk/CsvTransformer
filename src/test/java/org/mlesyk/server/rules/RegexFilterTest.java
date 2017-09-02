@@ -2,14 +2,14 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.RegexUtil;
 
 
 /**
  * Created by Maks on 27.08.2017.
  */
-public class RegexFilterTest extends AbstractRuleTest {
+public class RegexFilterTest extends AbstractRuleTestRunner {
 
     @Test
     public void testRegexNumber() {
@@ -21,7 +21,7 @@ public class RegexFilterTest extends AbstractRuleTest {
         String regex = "([0-9]+)";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyRegex(columnPosition, regex, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, regex, csvDataResult), true);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class RegexFilterTest extends AbstractRuleTest {
         String regex = "^([a-z0-9_\\.-]+)@([a-z0-9_\\.-]+)\\.([a-z\\.]{2,6})$";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyRegex(columnPosition, regex, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, regex, csvDataResult), true);
     }
 
 
@@ -56,7 +56,7 @@ public class RegexFilterTest extends AbstractRuleTest {
         String searchData = "ata";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyRegex(columnPosition, RegexUtil.CONTAINS, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.CONTAINS, searchData, csvDataResult), true);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class RegexFilterTest extends AbstractRuleTest {
         String searchData = "col";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyRegex(columnPosition, RegexUtil.BEGINS_WITH, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.BEGINS_WITH, searchData, csvDataResult), true);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class RegexFilterTest extends AbstractRuleTest {
         String searchData = "mn1";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyRegex(columnPosition, RegexUtil.ENDS_WITH, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.ENDS_WITH, searchData, csvDataResult), true);
     }
 
 
@@ -93,16 +93,6 @@ public class RegexFilterTest extends AbstractRuleTest {
         String searchData = "data1";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyRegex(columnPosition, RegexUtil.EQUALS, searchData, csvDataResult), true);
-    }
-
-    private boolean applyRegex(int columnPosition, String regex, String[] expectedResult) {
-        ResultColumn column = manager.getOutputColumns().get(columnPosition);
-        return this.testRule(new RegexFilter(columnPosition, regex, manager.getOutputColumns()), column, expectedResult);
-    }
-
-    private boolean applyRegex(int columnPosition,int searchType, String searchData, String[] expectedResult) {
-        ResultColumn column = manager.getOutputColumns().get(columnPosition);
-        return this.testRule(new RegexFilter(columnPosition, searchType, searchData, manager.getOutputColumns()), column, expectedResult);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.EQUALS, searchData, csvDataResult), true);
     }
 }

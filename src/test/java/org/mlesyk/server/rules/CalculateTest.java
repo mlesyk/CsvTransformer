@@ -2,13 +2,13 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mlesyk.server.ResultColumn;
+import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
 
 /**
  * Created by Maks on 29.08.2017.
  */
-public class CalculateTest extends AbstractRuleTest {
+public class CalculateTest extends AbstractRuleTestRunner {
 
     @Test
     public void testDivideFirstSecondPosition() {
@@ -30,7 +30,7 @@ public class CalculateTest extends AbstractRuleTest {
         int secondColumnId = 1;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.DIVIDE, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.DIVIDE, csvDataResult), true);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CalculateTest extends AbstractRuleTest {
         int secondColumnId = 3;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.MULTIPLY, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.MULTIPLY, csvDataResult), true);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CalculateTest extends AbstractRuleTest {
         int secondColumnId = 2;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.ADD, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.ADD, csvDataResult), true);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class CalculateTest extends AbstractRuleTest {
         int secondColumnId = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.SUBTRACT, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.SUBTRACT, csvDataResult), true);
     }
 
     @Test
@@ -122,13 +122,6 @@ public class CalculateTest extends AbstractRuleTest {
         int secondColumnId = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(applyCalculation(firstColumnId, secondColumnId, MathUtil.MOD, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.MOD, csvDataResult), true);
     }
-
-
-    protected boolean applyCalculation(int firstColumnId, int secondColumnId, String operation, String[] expectedResult, AbstractRule... rules) {
-        ResultColumn column = manager.getOutputColumns().get(firstColumnId);
-        return this.testRule(new Calculate(firstColumnId, secondColumnId, operation, manager.getOutputColumns()), column, expectedResult, rules);
-    }
-
 }
