@@ -24,6 +24,6 @@ public class CloneTest extends AbstractRuleTest {
 
     protected boolean applyClone(int columnPosition, String[] expectedResult, AbstractRule... rules) {
         ResultColumn column = manager.getOutputColumns().get(columnPosition);
-        return this.testRule(new Clone(columnPosition, manager.getOutputColumns(), rules), column, expectedResult);
+        return this.testRule(new Clone(columnPosition, manager.getOutputColumns()), column, expectedResult, rules);
     }
 }

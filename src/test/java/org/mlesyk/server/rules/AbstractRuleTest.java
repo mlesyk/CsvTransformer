@@ -54,9 +54,10 @@ public abstract class AbstractRuleTest {
         tempOutput.delete();
     }
 
-    protected boolean testRule(AbstractRule rule, ResultColumn column, String[] expectedResult) {
+    protected boolean testRule(AbstractRule rule, ResultColumn column, String[] expectedResult, AbstractRule... rules) {
         boolean result = true;
         column.addRule(rule);
+        column.addAllRules(rules);
         manager.writeOutputFile();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(manager.getOutputFilePath()))) {
             for(int i = 0; i < expectedResult.length; i++) {

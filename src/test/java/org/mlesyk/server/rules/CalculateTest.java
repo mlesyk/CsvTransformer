@@ -128,7 +128,7 @@ public class CalculateTest extends AbstractRuleTest {
 
     protected boolean applyCalculation(int firstColumnId, int secondColumnId, String operation, String[] expectedResult, AbstractRule... rules) {
         ResultColumn column = manager.getOutputColumns().get(firstColumnId);
-        return this.testRule(new Calculate(firstColumnId, secondColumnId, operation, manager.getOutputColumns(), rules), column, expectedResult);
+        return this.testRule(new Calculate(firstColumnId, secondColumnId, operation, manager.getOutputColumns()), column, expectedResult, rules);
     }
 
 }

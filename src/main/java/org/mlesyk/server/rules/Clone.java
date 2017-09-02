@@ -11,14 +11,12 @@ public class Clone extends AbstractRule {
 
     private List<ResultColumn> columns;
     int columnId;
-    AbstractRule[] rules;
 
     private boolean applied = false;
 
-    public Clone(int columnId, List<ResultColumn> columns, AbstractRule... rules) {
+    public Clone(int columnId, List<ResultColumn> columns) {
         this.columnId = columnId;
         this.columns = columns;
-        this.rules = rules;
     }
 
     @Override
@@ -30,7 +28,6 @@ public class Clone extends AbstractRule {
                 columns.get(i).setId(i + 1);
             }
             columns.add(column.getId() + 1, clone);
-            clone.addAllRules(rules);
             applied = true;
         } else {
             ResultColumn clone = columns.get(column.getId() + 1);
