@@ -13,6 +13,8 @@ public class MathFilter extends AbstractRule {
     private List<ResultColumn> columns;
     private String condition;
     private double conditionValue;
+    ResultColumn column;
+
 
     public MathFilter(int columnId, String condition, double conditionValue, List<ResultColumn> columns) {
         columnIds = new int[1];
@@ -24,8 +26,10 @@ public class MathFilter extends AbstractRule {
 
     @Override
     public void apply() {
-        ResultColumn column = columns.get(columnIds[0]);
         try {
+            if(column == null) {
+                column = columns.get(columnIds[0]);
+            }
             double columnValue = Double.parseDouble(column.getData());
             column.setSkipRow(!MathUtil.filter(columnValue, conditionValue, condition));
         } catch (NumberFormatException e) {

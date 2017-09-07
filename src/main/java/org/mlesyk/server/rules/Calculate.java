@@ -3,7 +3,6 @@ package org.mlesyk.server.rules;
 import org.mlesyk.server.ResultColumn;
 import org.mlesyk.server.utils.MathUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,6 +13,10 @@ public class Calculate extends AbstractRule {
     private List<ResultColumn> columns;
     private String operation;
     private boolean applied = false;
+    int calculatedColumnId;
+    ResultColumn calculatedColumn;
+    ResultColumn column1;
+    ResultColumn column2;
 
     public Calculate(int firstColumnId, int secondColumnId, String operation, List<ResultColumn> columns) {
         this.columns = columns;
@@ -25,37 +28,44 @@ public class Calculate extends AbstractRule {
 
     @Override
     public void apply() {
-        ResultColumn column1 = columns.get(columnIds[0]);
-        ResultColumn column2 = columns.get(columnIds[1]);
-
-        // check if columnId was changed by ChangeColumnPosition rule
-        int[] newResultIds = Arrays.copyOf(columnIds, columnIds.length);
-        for(int i = 0; i < columnIds.length; i++) {
-            for(AbstractRule rule: columns.get(i).getRules()) {
-                if(rule instanceof ChangeColumnPosition && ((ChangeColumnPosition) rule).isApplied()) {
-                    newResultIds[i] = columns.get(i).getId();
+        if(column1 == null || column2 == null) {
+            column1 = columns.get(columnIds[0]);
+            column2 = columns.get(columnIds[1]);
+        }
+        if(!applied) {
+            calculatedColumnId = columnIds[0] > columnIds[1] ? columnIds[0] + 1: columnIds[1] + 1;
+            calculatedColumn = new ResultColumn();
+            calculatedColumn.setId(calculatedColumnId);
+            calculatedColumn.setArrayColumnId(calculatedColumnId);
+            calculatedColumn.setSourceFileColumnId(column1.getSourceFileColumnId());
+            // shift all columns after calculated and change all IDs of their rules
+            for (int i = calculatedColumnId; i < columns.size(); i++) {
+                columns.get(i).setId(i + 1);
+                columns.get(i).setArrayColumnId(i + 1);
+                for(AbstractRule rule: columns.get(i).getRules()) {
+                    rule.columnIds[0] = rule.columnIds[0] + 1;
                 }
             }
-        }
-
-        int resultColumnId = newResultIds[0] > newResultIds[1] ? newResultIds[0] + 1: newResultIds[1] + 1;
-
-        if(!applied) {
-            ResultColumn calculatedColumn = new ResultColumn();
-            calculatedColumn.setId(resultColumnId);
-            calculatedColumn.setSourceFileColumnId(column1.getSourceFileColumnId());
-            for (int i = resultColumnId; i < columns.size(); i++) {
-                columns.get(i).setId(i + 1);
-            }
-            columns.add(resultColumnId, calculatedColumn);
+            columns.add(calculatedColumnId, calculatedColumn);
             applied = true;
         }
         try {
             Double number1 = Double.parseDouble(column1.getData());
             Double number2 = Double.parseDouble(column2.getData());
-            columns.get(resultColumnId).setData(Double.toString(MathUtil.calculate(number1, number2, operation)));
+            calculatedColumn.setData(Double.toString(MathUtil.calculate(number1, number2, operation)));
         } catch (NumberFormatException e) {
             System.out.println("Not a number");
         }
+    }
+
+    @Override
+    protected void changeResultColumnId(int value) {
+        super.changeResultColumnId(value);
+        calculatedColumnId = value;
+    }
+
+    @Override
+    public int getResultColumnId() {
+        return calculatedColumnId;
     }
 }

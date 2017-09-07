@@ -9,18 +9,31 @@ import java.util.List;
  */
 public class MergeColumns extends AbstractRule {
     List<ResultColumn> columns;
+    boolean applied = false;
+    ResultColumn firstColumn;
+    ResultColumn secondColumn;
 
     public MergeColumns(int firstColumnId, int secondColumnId, List<ResultColumn> columns) {
         this.columns = columns;
         columnIds = new int[2];
-        columnIds[0] = firstColumnId;
+        this.columnIds[0] = firstColumnId;
         columnIds[1] = secondColumnId;
     }
 
     @Override
     public void apply() {
-        ResultColumn firstColumn = columns.get(columnIds[0]);
-        ResultColumn secondColumn = columns.get(columnIds[1]);
-        secondColumn.setId(firstColumn.getId());
+        if(firstColumn == null || secondColumn == null) {
+            firstColumn = columns.get(columnIds[0]);
+            secondColumn = columns.get(columnIds[1]);
+        }
+
+        if (!applied) {
+            firstColumn.getMergedColumns().add(secondColumn);
+            secondColumn.setDeleted(true);
+            firstColumn.joinData(secondColumn.getData());
+            applied = true;
+        } else {
+            firstColumn.joinData(secondColumn.getData());
+        }
     }
 }

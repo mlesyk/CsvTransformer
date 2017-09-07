@@ -15,6 +15,7 @@ public class RegexFilter extends AbstractRule {
     private List<ResultColumn> columns;
     private Pattern pattern;
     private int searchType;
+    ResultColumn column;
 
     public RegexFilter(int columnPosition, String pattern, List<ResultColumn> columns) {
         this.searchType = RegexUtil.REGEX;
@@ -22,6 +23,7 @@ public class RegexFilter extends AbstractRule {
         this.columnIds[0] = columnPosition;
         this.columns = columns;
         this.pattern = RegexUtil.search(this.searchType, pattern);
+        column = columns.get(columnIds[0]);
     }
 
     public RegexFilter(int columnPosition, int searchType, String searchData, List<ResultColumn> columns) {
@@ -30,11 +32,15 @@ public class RegexFilter extends AbstractRule {
         this.columnIds[0] = columnPosition;
         this.columns = columns;
         this.pattern = RegexUtil.search(this.searchType, searchData);
+
+
     }
 
     @Override
     public void apply() {
-        ResultColumn column = columns.get(columnIds[0]);
+        if(column == null) {
+            column = columns.get(columnIds[0]);
+        }
         Matcher matcher = pattern.matcher(column.getData());
         String data = matcher.find() ? matcher.group(): "";
         if(data.equals("")) {
