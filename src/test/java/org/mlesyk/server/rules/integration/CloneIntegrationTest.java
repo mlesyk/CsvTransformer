@@ -14,12 +14,12 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
     @Test
     public void testCloneThenRegex() {
         String[] csvDataResult = {
-                "column1,1,column2,column3,column4",
-                "data1,1,data2,data3,data4"
+                "1,column1,column2,column3,column4",
+                "1,data1,data2,data3,data4"
         };
         int columnPosition = 0;
         String regex = "([0-9]+)";
-        RegexFilter regexRule = new RegexFilter(columnPosition + 1,regex, manager.getOutputColumns());
+        RegexFilter regexRule = new RegexFilter(columnPosition,regex, manager.getOutputColumns());
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, regexRule), true);
@@ -32,7 +32,8 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
                 "data1,data2,data3,data4,data1"
         };
         int columnPosition = 0;
-        ChangeColumnPosition positionRule = new ChangeColumnPosition(columnPosition + 1,manager.getOutputColumns().size(), manager.getOutputColumns() );
+        int newPosition = 4;
+        ChangeColumnPosition positionRule = new ChangeColumnPosition(columnPosition, newPosition, manager.getOutputColumns() );
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, positionRule), true);
     }

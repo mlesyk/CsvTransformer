@@ -39,8 +39,8 @@ public class MergeColumnsTest extends AbstractRuleTestRunner {
     @Test
     public void testMergeFirstToLastPosition() {
         String[] csvDataResult = {
-                "column2,column3,column1 column4",
-                "data2,data3,data1 data4"
+                "column2,column3,column4 column1",
+                "data2,data3,data4 data1"
         };
         int firstColumnId = 3;
         int secondColumnId = 0;

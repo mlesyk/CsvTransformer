@@ -34,10 +34,10 @@ public abstract class AbstractRuleTestRunner extends AbstractRuleTest {
         return this.testRule(new MathFilter(columnId, condition, conditionValue, manager.getOutputColumns()), column, expectedResult, rules);
     }
 
-    protected boolean runMergeTest(int firstColumnId, int secondColumnId, String[] expectedResult) {
+    protected boolean runMergeTest(int firstColumnId, int secondColumnId, String[] expectedResult,AbstractRule... rules) {
         ResultColumn firstColumn = manager.getOutputColumns().get(firstColumnId);
         return this.testRule(new MergeColumns(firstColumnId, secondColumnId, manager.getOutputColumns()),
-                firstColumn, expectedResult);
+                firstColumn, expectedResult, rules);
     }
 
     protected boolean runRegexTest(int columnPosition, int searchType, String searchData, String[] expectedResult) {
