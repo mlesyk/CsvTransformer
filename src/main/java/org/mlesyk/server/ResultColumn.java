@@ -20,14 +20,25 @@ public class ResultColumn implements Comparable {
 
     private boolean skipRow;
 
+    private boolean deleted;
+
+    private boolean iterated;
+
+    private List<ResultColumn> mergedColumns;
+
     // filled with data in cell when iterating each row
     private String data;
 
     private List<AbstractRule> rules;
 
+    // id of column in array of columns
+    protected int arrayColumnId;
+
     public ResultColumn() {
         rules = new ArrayList<AbstractRule>();
+        mergedColumns = new ArrayList<ResultColumn>();
         id = counter;
+        arrayColumnId = counter;
         sourceFileColumnId = counter;
         counter++;
         skipRow = false;
@@ -35,11 +46,22 @@ public class ResultColumn implements Comparable {
 
     public ResultColumn(ResultColumn source) {
         rules = new ArrayList<AbstractRule>();
+        mergedColumns = source.getMergedColumns();
         this.id = source.id + 1;
+        this.arrayColumnId = source.getArrayColumnId() + 1;
         this.sourceFileColumnId = source.sourceFileColumnId;
         this.data = source.data;
         skipRow = false;
     }
+
+    public int getArrayColumnId() {
+        return arrayColumnId;
+    }
+
+    public void setArrayColumnId(int arrayColumnId) {
+        this.arrayColumnId = arrayColumnId;
+    }
+
 
     public boolean isSkipRow() {
         if(skipRow) { // should work only for one row (single iteration)
@@ -52,6 +74,22 @@ public class ResultColumn implements Comparable {
 
     public void setSkipRow(boolean skipRow) {
         this.skipRow = skipRow;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public List<ResultColumn> getMergedColumns() {
+        return mergedColumns;
+    }
+
+    public void setMergedColumns(List<ResultColumn> mergedColumns) {
+        this.mergedColumns = mergedColumns;
     }
 
     public String getData() {
@@ -77,6 +115,14 @@ public class ResultColumn implements Comparable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isIterated() {
+        return iterated;
+    }
+
+    public void setIterated(boolean iterated) {
+        this.iterated = iterated;
     }
 
     public int getSourceFileColumnId() {
