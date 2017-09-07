@@ -86,21 +86,22 @@ public class CsvManager {
                     }
                 }
         );
-        for (int i = 0; i < outputColumns.size(); i++) {  //used simple iteration
-            outputColumns.get(i).applyAllRules();         //to be able add new columns
-                                                            // without ConcurrentModificationException
+        for (int i = 0; i < outputColumns.size(); i++) {  //used simple iteration to be able add new columns without ConcurrentModificationException
+            ResultColumn column = outputColumns.get(i);
+            if(column.isIterated()) {
+                continue;
+            }
+            column.applyAllRules();
+            column.setIterated(true);
+        }
+        for(ResultColumn column: outputColumns) {
+            column.setIterated(false);
         }
         if (outputColumns.stream().anyMatch(ResultColumn::isSkipRow)) {
             return ""; // MathFilter
         } else {
             return outputColumns.stream()
-                    .filter(resultColumn -> resultColumn.getId() != Delete.DELETED) // Delete
-                    .collect(Collectors.groupingBy(ResultColumn::getId, //MergeColumns
-                            Collectors.collectingAndThen(Collectors.reducing((a, b) ->
-                                    a.getSourceFileColumnId() > b.getSourceFileColumnId() ? b.joinData(a.getData()) : a.joinData(b.getData())
-                            ), Optional::get)))
-                    .values()
-                    .stream()
+                    .filter(resultColumn -> !resultColumn.isDeleted()) // Delete
                     .sorted() // sorted order of columns by id
                     .map(ResultColumn::getData)
                     .collect(Collectors.joining(","));
