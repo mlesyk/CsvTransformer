@@ -40,13 +40,13 @@ public abstract class AbstractRuleTestRunner extends AbstractRuleTest {
                 firstColumn, expectedResult, rules);
     }
 
-    protected boolean runRegexTest(int columnPosition, int searchType, String searchData, String[] expectedResult) {
+    protected boolean runRegexTest(int columnPosition, int searchType, String searchData, String[] expectedResult, AbstractRule... rules) {
         ResultColumn column = manager.getOutputColumns().get(columnPosition);
-        return this.testRule(new RegexFilter(columnPosition, searchType, searchData, manager.getOutputColumns()), column, expectedResult);
+        return this.testRule(new RegexFilter(columnPosition, searchType, searchData, manager.getOutputColumns()), column, expectedResult, rules);
     }
 
-    protected boolean runRegexTest(int columnPosition, String regex, String[] expectedResult) {
+    protected boolean runRegexTest(int columnPosition, String regex, String[] expectedResult,AbstractRule... rules) {
         ResultColumn column = manager.getOutputColumns().get(columnPosition);
-        return this.testRule(new RegexFilter(columnPosition, regex, manager.getOutputColumns()), column, expectedResult);
+        return this.testRule(new RegexFilter(columnPosition, regex, manager.getOutputColumns()), column, expectedResult, rules);
     }
 }
