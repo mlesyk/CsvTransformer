@@ -32,7 +32,7 @@ public class Calculate extends AbstractRule {
         }
         if(!applied) {
             calculatedColumnId = columnIds[0] > columnIds[1] ? columnIds[0] + 1: columnIds[1] + 1;
-            calculatedColumn = new ResultColumn();
+            calculatedColumn = new ResultColumn(calculatedColumnId);
             calculatedColumn.setArrayColumnId(calculatedColumnId);
             calculatedColumn.setSourceFileColumnId(column1.getSourceFileColumnId());
             // shift all columns after calculated and change all IDs of their rules

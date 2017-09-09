@@ -13,8 +13,6 @@ public class ResultColumn implements Comparable {
     // data source for current column
     private int sourceFileColumnId;
 
-    private static int counter;
-
     private boolean skipRow;
 
     private boolean deleted;
@@ -31,12 +29,11 @@ public class ResultColumn implements Comparable {
     // id of column in array of columns
     private int arrayColumnId;
 
-    public ResultColumn() {
+    public ResultColumn(int arrayColumnId) {
         rules = new ArrayList<AbstractRule>();
         mergedColumns = new ArrayList<ResultColumn>();
-        arrayColumnId = counter;
-        sourceFileColumnId = counter;
-        counter++;
+        this.arrayColumnId = arrayColumnId;
+        this.sourceFileColumnId = arrayColumnId;
         skipRow = false;
     }
 
@@ -98,10 +95,6 @@ public class ResultColumn implements Comparable {
     public ResultColumn joinData(String data) {
         this.data = new StringBuilder().append(this.data).append(" ").append(data).toString();
         return this;
-    }
-
-    public static void setCounter(int counter) {
-        ResultColumn.counter = counter;
     }
 
     public boolean isIterated() {

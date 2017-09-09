@@ -47,11 +47,8 @@ public class CsvManager {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(inputFilePath))) {
             String line = br.readLine();
             outputColumns = new ArrayList<ResultColumn>();
-            // counter should be cleared on each new file processing
-            // TODO: implement better approach
-            ResultColumn.setCounter(0);
             for (int i = 0; i < line.split(",").length; i++) {
-                outputColumns.add(new ResultColumn());
+                outputColumns.add(new ResultColumn(i));
             }
         } catch (IOException e) {
             e.printStackTrace();
