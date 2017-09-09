@@ -9,14 +9,12 @@ import java.util.List;
  * Created by Maks on 24.08.2017.
  */
 public class Calculate extends AbstractRule {
-
-    private List<ResultColumn> columns;
     private String operation;
     private boolean applied = false;
-    int calculatedColumnId;
-    ResultColumn calculatedColumn;
-    ResultColumn column1;
-    ResultColumn column2;
+    private int calculatedColumnId;
+    private ResultColumn calculatedColumn;
+    private ResultColumn column1;
+    private ResultColumn column2;
 
     public Calculate(int firstColumnId, int secondColumnId, String operation, List<ResultColumn> columns) {
         this.columns = columns;
@@ -35,12 +33,10 @@ public class Calculate extends AbstractRule {
         if(!applied) {
             calculatedColumnId = columnIds[0] > columnIds[1] ? columnIds[0] + 1: columnIds[1] + 1;
             calculatedColumn = new ResultColumn();
-            calculatedColumn.setId(calculatedColumnId);
             calculatedColumn.setArrayColumnId(calculatedColumnId);
             calculatedColumn.setSourceFileColumnId(column1.getSourceFileColumnId());
             // shift all columns after calculated and change all IDs of their rules
             for (int i = calculatedColumnId; i < columns.size(); i++) {
-                columns.get(i).setId(i + 1);
                 columns.get(i).setArrayColumnId(i + 1);
                 for(AbstractRule rule: columns.get(i).getRules()) {
                     rule.columnIds[0] = rule.columnIds[0] + 1;

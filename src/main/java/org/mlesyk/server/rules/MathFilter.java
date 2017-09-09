@@ -9,11 +9,9 @@ import java.util.List;
  * Created by Maks on 24.08.2017.
  */
 public class MathFilter extends AbstractRule {
-
-    private List<ResultColumn> columns;
     private String condition;
     private double conditionValue;
-    ResultColumn column;
+    private ResultColumn column;
 
 
     public MathFilter(int columnId, String condition, double conditionValue, List<ResultColumn> columns) {

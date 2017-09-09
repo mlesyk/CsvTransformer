@@ -10,8 +10,7 @@ import java.util.List;
 public class Delete extends AbstractRule {
     // this Rule changes document structure, should be applied once
     private boolean applied;
-    List<ResultColumn> columns;
-    ResultColumn column;
+    private ResultColumn column;
 
     public Delete(int columnPosition, List<ResultColumn> columns) {
         this.columns = columns;

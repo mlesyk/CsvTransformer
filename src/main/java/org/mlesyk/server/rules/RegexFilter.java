@@ -11,11 +11,9 @@ import java.util.regex.Pattern;
  * Created by Maks on 24.08.2017.
  */
 public class RegexFilter extends AbstractRule {
-
-    private List<ResultColumn> columns;
     private Pattern pattern;
     private int searchType;
-    ResultColumn column;
+    private ResultColumn column;
 
     public RegexFilter(int columnPosition, String pattern, List<ResultColumn> columns) {
         this.searchType = RegexUtil.REGEX;
@@ -32,8 +30,6 @@ public class RegexFilter extends AbstractRule {
         this.columnIds[0] = columnPosition;
         this.columns = columns;
         this.pattern = RegexUtil.search(this.searchType, searchData);
-
-
     }
 
     @Override

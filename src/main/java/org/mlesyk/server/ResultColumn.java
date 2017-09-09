@@ -10,9 +10,6 @@ import java.util.List;
  * Created by Maks on 24.08.2017.
  */
 public class ResultColumn implements Comparable {
-    // order of resulted column
-    private int id;
-
     // data source for current column
     private int sourceFileColumnId;
 
@@ -32,12 +29,11 @@ public class ResultColumn implements Comparable {
     private List<AbstractRule> rules;
 
     // id of column in array of columns
-    protected int arrayColumnId;
+    private int arrayColumnId;
 
     public ResultColumn() {
         rules = new ArrayList<AbstractRule>();
         mergedColumns = new ArrayList<ResultColumn>();
-        id = counter;
         arrayColumnId = counter;
         sourceFileColumnId = counter;
         counter++;
@@ -47,7 +43,6 @@ public class ResultColumn implements Comparable {
     public ResultColumn(ResultColumn source) {
         rules = new ArrayList<AbstractRule>();
         mergedColumns = source.getMergedColumns();
-        this.id = source.id + 1;
         this.arrayColumnId = source.getArrayColumnId() + 1;
         this.sourceFileColumnId = source.sourceFileColumnId;
         this.data = source.data;
@@ -109,14 +104,6 @@ public class ResultColumn implements Comparable {
         ResultColumn.counter = counter;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public boolean isIterated() {
         return iterated;
     }
@@ -157,7 +144,7 @@ public class ResultColumn implements Comparable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
+        result = prime * result + arrayColumnId;
         return result;
     }
 
@@ -170,7 +157,7 @@ public class ResultColumn implements Comparable {
         if (getClass() != obj.getClass())
             return false;
         ResultColumn other = (ResultColumn) obj;
-        if (this.id != other.id)
+        if (this.arrayColumnId != other.arrayColumnId)
             return false;
         return true;
     }
@@ -178,7 +165,7 @@ public class ResultColumn implements Comparable {
     @Override
     public int compareTo(Object obj) {
         ResultColumn other = (ResultColumn) obj;
-        return ( this.id - other.id );
+        return ( this.arrayColumnId - other.arrayColumnId );
     }
 
     @Override

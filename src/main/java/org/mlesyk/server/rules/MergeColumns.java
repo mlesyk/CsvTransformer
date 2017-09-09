@@ -8,10 +8,9 @@ import java.util.List;
  * Created by Maks on 24.08.2017.
  */
 public class MergeColumns extends AbstractRule {
-    List<ResultColumn> columns;
-    boolean applied = false;
-    ResultColumn firstColumn;
-    ResultColumn secondColumn;
+    private boolean applied;
+    private ResultColumn firstColumn;
+    private ResultColumn secondColumn;
 
     public MergeColumns(int firstColumnId, int secondColumnId, List<ResultColumn> columns) {
         this.columns = columns;

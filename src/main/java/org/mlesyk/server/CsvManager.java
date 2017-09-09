@@ -1,7 +1,5 @@
 package org.mlesyk.server;
 
-import org.mlesyk.server.rules.Delete;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class ChangeColumnPosition extends AbstractRule {
 
-    private List<ResultColumn> columns;
-
     // this Rule changes document structure, should be applied once
     private boolean applied;
 
@@ -29,7 +27,6 @@ public class ChangeColumnPosition extends AbstractRule {
             if (columnIds[0] < columnIds[1]) {
                 temp = columns.get(columnIds[1]);
                 for (int i = columnIds[1]; i > columnIds[0]; i--) {
-                    temp.setId(columns.get(i - 1).getId());
                     temp.setArrayColumnId(columns.get(i - 1).getArrayColumnId());
                     for (AbstractRule rule : temp.getRules()) {
                         rule.columnIds[0] = rule.columnIds[0] - 1;
@@ -41,7 +38,6 @@ public class ChangeColumnPosition extends AbstractRule {
             } else {
                 temp = columns.get(columnIds[1]);
                 for (int i = columnIds[1]; i < columnIds[0]; i++) {
-                    temp.setId(columns.get(i + 1).getId());
                     temp.setArrayColumnId(columns.get(i + 1).getArrayColumnId());
                     for (AbstractRule rule : temp.getRules()) {
                         rule.columnIds[0] = rule.columnIds[0] + 1;
@@ -51,7 +47,7 @@ public class ChangeColumnPosition extends AbstractRule {
                     temp = temp2;
                 }
             }
-            temp.setId(columnIds[1]);
+            temp.setArrayColumnId(columnIds[1]);
             columns.set(columnIds[1], temp);
             for (int i = 0; i < temp.getRules().size(); i++) {
                 if (temp.getRules().get(i) == this) {
@@ -78,9 +74,5 @@ public class ChangeColumnPosition extends AbstractRule {
             }
             applied = true;
         }
-    }
-
-    public boolean isApplied() {
-        return applied;
     }
 }
