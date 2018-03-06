@@ -1,0 +1,33 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>tableServlet</servlet-name>
+    <servlet-class>org.mlesyk.gwt.csvdashboard.server.TableLoadingServiceImpl</servlet-class>
+  </servlet>
+
+  <!-- Upload -->
+  <servlet>
+    <servlet-name>CsvFileUpload</servlet-name>
+    <servlet-class>org.mlesyk.gwt.csvdashboard.server.form.UploadFileHandler</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CsvFileUpload</servlet-name>
+    <url-pattern>/CsvFileUpload</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>tableServlet</servlet-name>
+    <url-pattern>/csvdashboard/upload</url-pattern>
+  </servlet-mapping>
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>CsvDashboard.html</welcome-file>
+  </welcome-file-list>
+</web-app>
