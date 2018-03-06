@@ -14,9 +14,9 @@ public class MathFilter extends AbstractRule {
     private ResultColumn column;
 
 
-    public MathFilter(int columnId, String condition, double conditionValue, List<ResultColumn> columns) {
-        columnIds = new int[1];
-        this.columnIds[0] = columnId;
+    public MathFilter(int columnId, String condition, double conditionValue, List<ResultColumn> columns, int id) {
+        this.id = id;
+        columnIds = new int[] {columnId};
         this.columns = columns;
         this.condition = condition;
         this.conditionValue = conditionValue;
@@ -29,10 +29,20 @@ public class MathFilter extends AbstractRule {
                 column = columns.get(columnIds[0]);
             }
             double columnValue = Double.parseDouble(column.getData());
-            column.setSkipRow(!MathUtil.filter(columnValue, conditionValue, condition));
+            column.setSkipRow(column.isSkipRow() || !MathUtil.filter(columnValue, conditionValue, condition));
         } catch (NumberFormatException e) {
             System.out.println("Not a number");
         }
 
+    }
+
+    @Override
+    public void rollback() {
+        // nothing to do
+    }
+
+    @Override
+    public int[] getResultColumnId() {
+        return columnIds;
     }
 }

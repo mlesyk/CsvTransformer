@@ -12,11 +12,10 @@ public class Clone extends AbstractRule {
     private ResultColumn column;
     private ResultColumn clone;
 
-    public Clone(int columnId, List<ResultColumn> columns) {
-        columnIds = new int[1];
-        this.columnIds[0] = columnId;
+    public Clone(int columnId, List<ResultColumn> columns, int id) {
+        this.id = id;
+        columnIds = new int[]{columnId};
         this.columns = columns;
-
     }
 
     @Override
@@ -29,9 +28,6 @@ public class Clone extends AbstractRule {
             // shift all columns after cloned and change all IDs of their rules
             for (int i = clone.getArrayColumnId(); i < columns.size(); i++) {
                 columns.get(i).setArrayColumnId(i + 1);
-                for (AbstractRule rule : columns.get(i).getRules()) {
-                    rule.columnIds[0] = rule.columnIds[0] + 1;
-                }
             }
             columns.add(clone.getArrayColumnId(), clone);
             clone.setData(column.getData());
@@ -39,5 +35,18 @@ public class Clone extends AbstractRule {
         } else {
             clone.setData(column.getData());
         }
+    }
+
+    @Override
+    public void rollback() {
+        for (int i = clone.getArrayColumnId(); i < columns.size(); i++) {
+            columns.get(i).setArrayColumnId(i - 1);
+        }
+        columns.remove(clone);
+    }
+
+    @Override
+    public int[] getResultColumnId() {
+        return columnIds;
     }
 }

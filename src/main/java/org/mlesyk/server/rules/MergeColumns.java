@@ -12,11 +12,10 @@ public class MergeColumns extends AbstractRule {
     private ResultColumn firstColumn;
     private ResultColumn secondColumn;
 
-    public MergeColumns(int firstColumnId, int secondColumnId, List<ResultColumn> columns) {
+    public MergeColumns(int firstColumnId, int secondColumnId, List<ResultColumn> columns, int id) {
+        this.id = id;
         this.columns = columns;
-        columnIds = new int[2];
-        this.columnIds[0] = firstColumnId;
-        columnIds[1] = secondColumnId;
+        columnIds = new int[]{firstColumnId,secondColumnId};
     }
 
     @Override
@@ -28,11 +27,29 @@ public class MergeColumns extends AbstractRule {
 
         if (!applied) {
             firstColumn.getMergedColumns().add(secondColumn);
+            // mark merged column as deleted and move it to the end of list
+            // but do not change arrayColumnId to make possible
+            // remove MergeColumn rule from rules chain
             secondColumn.setDeleted(true);
+            columns.remove(columnIds[1]);
+            columns.add(secondColumn);
             firstColumn.joinData(secondColumn.getData());
             applied = true;
         } else {
             firstColumn.joinData(secondColumn.getData());
         }
+    }
+
+    @Override
+    public void rollback() {
+        firstColumn.getMergedColumns().remove(secondColumn);
+        secondColumn.setDeleted(false);
+        columns.remove(secondColumn);
+        columns.add(columnIds[1], secondColumn);
+    }
+
+    @Override
+    public int[] getResultColumnId() {
+        return columnIds;
     }
 }

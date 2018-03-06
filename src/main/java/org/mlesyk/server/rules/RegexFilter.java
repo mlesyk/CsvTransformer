@@ -1,5 +1,6 @@
 package org.mlesyk.server.rules;
 
+import org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants;
 import org.mlesyk.server.ResultColumn;
 import org.mlesyk.server.utils.RegexUtil;
 
@@ -15,19 +16,19 @@ public class RegexFilter extends AbstractRule {
     private int searchType;
     private ResultColumn column;
 
-    public RegexFilter(int columnPosition, String pattern, List<ResultColumn> columns) {
-        this.searchType = RegexUtil.REGEX;
-        columnIds = new int[1];
-        this.columnIds[0] = columnPosition;
+    public RegexFilter(int columnPosition, String pattern, List<ResultColumn> columns, int id) {
+        this.id = id;
+        this.searchType = RegexUtilConstants.REGEX;
+        columnIds = new int[]{columnPosition};
         this.columns = columns;
         this.pattern = RegexUtil.search(this.searchType, pattern);
         column = columns.get(columnIds[0]);
     }
 
-    public RegexFilter(int columnPosition, int searchType, String searchData, List<ResultColumn> columns) {
+    public RegexFilter(int columnPosition, int searchType, String searchData, List<ResultColumn> columns, int id) {
+        this.id = id;
         this.searchType = searchType;
-        columnIds = new int[1];
-        this.columnIds[0] = columnPosition;
+        columnIds = new int[]{columnPosition};
         this.columns = columns;
         this.pattern = RegexUtil.search(this.searchType, searchData);
     }
@@ -43,5 +44,15 @@ public class RegexFilter extends AbstractRule {
             column.setSkipRow(true);
         }
         column.setData(data);
+    }
+
+    @Override
+    public void rollback() {
+        // nothing to do
+    }
+
+    @Override
+    public int[] getResultColumnId() {
+        return columnIds;
     }
 }

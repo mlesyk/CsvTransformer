@@ -11,16 +11,14 @@ import java.util.List;
 public class Calculate extends AbstractRule {
     private String operation;
     private boolean applied = false;
-    private int calculatedColumnId;
     private ResultColumn calculatedColumn;
     private ResultColumn column1;
     private ResultColumn column2;
 
-    public Calculate(int firstColumnId, int secondColumnId, String operation, List<ResultColumn> columns) {
+    public Calculate(int firstColumnId, int secondColumnId, String operation, List<ResultColumn> columns, int id) {
+        this.id = id;
         this.columns = columns;
-        columnIds = new int[2];
-        this.columnIds[0] = firstColumnId;
-        this.columnIds[1] = secondColumnId;
+        columnIds = new int[]{firstColumnId,secondColumnId};
         this.operation = operation;
     }
 
@@ -31,16 +29,13 @@ public class Calculate extends AbstractRule {
             column2 = columns.get(columnIds[1]);
         }
         if(!applied) {
-            calculatedColumnId = columnIds[0] > columnIds[1] ? columnIds[0] + 1: columnIds[1] + 1;
+            int calculatedColumnId = columnIds[0] > columnIds[1] ? columnIds[0] + 1: columnIds[1] + 1;
             calculatedColumn = new ResultColumn(calculatedColumnId);
             calculatedColumn.setArrayColumnId(calculatedColumnId);
             calculatedColumn.setSourceFileColumnId(column1.getSourceFileColumnId());
             // shift all columns after calculated and change all IDs of their rules
             for (int i = calculatedColumnId; i < columns.size(); i++) {
                 columns.get(i).setArrayColumnId(i + 1);
-                for(AbstractRule rule: columns.get(i).getRules()) {
-                    rule.columnIds[0] = rule.columnIds[0] + 1;
-                }
             }
             columns.add(calculatedColumnId, calculatedColumn);
             applied = true;
@@ -50,18 +45,20 @@ public class Calculate extends AbstractRule {
             Double number2 = Double.parseDouble(column2.getData());
             calculatedColumn.setData(Double.toString(MathUtil.calculate(number1, number2, operation)));
         } catch (NumberFormatException e) {
-            System.out.println("Not a number");
+            log.error("Cell data is not a number", e);
         }
     }
 
     @Override
-    protected void changeResultColumnId(int value) {
-        super.changeResultColumnId(value);
-        calculatedColumnId = value;
+    public void rollback() {
+        for (int i = calculatedColumn.getArrayColumnId(); i < columns.size(); i++) {
+            columns.get(i).setArrayColumnId(i - 1);
+        }
+        columns.remove(calculatedColumn);
     }
 
     @Override
-    public int getResultColumnId() {
-        return calculatedColumnId;
+    public int[] getResultColumnId() {
+        return new int[]{columnIds[0], columnIds[1], calculatedColumn.getArrayColumnId()};
     }
 }
