@@ -1,28 +1,11 @@
 package org.mlesyk.server.utils;
 
+import static org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants.*;
+
 /**
  * Created by Maks on 24.08.2017.
  */
 public final class MathUtil {
-
-    // calculation operations
-    public final static String DIVIDE = "/";
-    public final static String MULTIPLY = "*";
-    public final static String SUBTRACT = "-";
-    public final static String ADD = "+";
-    public final static String MOD = "%";
-
-    // filter conditions
-    public final static String GREATER = ">";
-    public final static String LESSER = "<";
-    public final static String GREATER_EQUAL = ">=";
-    public final static String LESSER_EQUAL = "<=";
-    public final static String EQUALS = "==";
-    public final static String EQUALS2 = "=";
-    public final static String NOT_EQUALS = "!=";
-    public final static String NOT_EQUALS2 = "<>";
-
-
     private MathUtil() {
     }
 

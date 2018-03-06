@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Maks on 24.08.2017.
+ * ResultColumn represents column of CSV file
  */
 public class ResultColumn implements Comparable {
     // data source for current column
@@ -17,20 +17,15 @@ public class ResultColumn implements Comparable {
 
     private boolean deleted;
 
-    private boolean iterated;
-
     private List<ResultColumn> mergedColumns;
 
     // filled with data in cell when iterating each row
     private String data;
 
-    private List<AbstractRule> rules;
-
-    // id of column in array of columns
+    // id of column in array of columns, used for sorted output
     private int arrayColumnId;
 
     public ResultColumn(int arrayColumnId) {
-        rules = new ArrayList<AbstractRule>();
         mergedColumns = new ArrayList<ResultColumn>();
         this.arrayColumnId = arrayColumnId;
         this.sourceFileColumnId = arrayColumnId;
@@ -38,7 +33,6 @@ public class ResultColumn implements Comparable {
     }
 
     public ResultColumn(ResultColumn source) {
-        rules = new ArrayList<AbstractRule>();
         mergedColumns = source.getMergedColumns();
         this.arrayColumnId = source.getArrayColumnId() + 1;
         this.sourceFileColumnId = source.sourceFileColumnId;
@@ -53,7 +47,6 @@ public class ResultColumn implements Comparable {
     public void setArrayColumnId(int arrayColumnId) {
         this.arrayColumnId = arrayColumnId;
     }
-
 
     public boolean isSkipRow() {
         if(skipRow) { // should work only for one row (single iteration)
@@ -80,10 +73,6 @@ public class ResultColumn implements Comparable {
         return mergedColumns;
     }
 
-    public void setMergedColumns(List<ResultColumn> mergedColumns) {
-        this.mergedColumns = mergedColumns;
-    }
-
     public String getData() {
         return data;
     }
@@ -97,14 +86,6 @@ public class ResultColumn implements Comparable {
         return this;
     }
 
-    public boolean isIterated() {
-        return iterated;
-    }
-
-    public void setIterated(boolean iterated) {
-        this.iterated = iterated;
-    }
-
     public int getSourceFileColumnId() {
         return sourceFileColumnId;
     }
@@ -112,26 +93,6 @@ public class ResultColumn implements Comparable {
     public void setSourceFileColumnId(int sourceFileColumnId) {
         this.sourceFileColumnId = sourceFileColumnId;
     }
-
-    public List<AbstractRule> getRules() {
-        return rules;
-    }
-
-    public void setRules(List<AbstractRule> rules) {
-        this.rules = rules;
-    }
-
-    public void applyAllRules() {
-        for(AbstractRule rule: rules) {
-            rule.apply();
-        }
-    }
-
-    public void addRule(AbstractRule rule) {
-        rules.add(rule);
-    }
-
-    public void addAllRules(AbstractRule[] rules) {this.rules.addAll(Arrays.asList(rules));}
 
     @Override
     public int hashCode() {

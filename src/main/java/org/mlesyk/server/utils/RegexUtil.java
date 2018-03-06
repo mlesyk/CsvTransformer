@@ -2,16 +2,12 @@ package org.mlesyk.server.utils;
 
 import java.util.regex.Pattern;
 
+import static org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants.*;
+
 /**
  * Created by Maks on 24.08.2017.
  */
 public final class RegexUtil {
-    public final static int CONTAINS = 1;
-    public final static int BEGINS_WITH = 2;
-    public final static int ENDS_WITH = 3;
-    public final static int EQUALS = 4;
-    public final static int REGEX = 5;
-
     private RegexUtil(){}
 
     public static Pattern search(int searchType, String searchData) {
