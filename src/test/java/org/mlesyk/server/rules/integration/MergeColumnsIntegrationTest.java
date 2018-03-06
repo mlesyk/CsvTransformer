@@ -2,9 +2,9 @@ package org.mlesyk.server.rules.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants;
 import org.mlesyk.server.rules.*;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
-import org.mlesyk.server.utils.MathUtil;
 import org.mlesyk.server.utils.RegexUtil;
 
 /**
@@ -23,7 +23,7 @@ public class MergeColumnsIntegrationTest extends AbstractRuleTestRunner {
 
         int newColumnPosition = 3;
 
-        ChangeColumnPosition changeColumnPositionRule = new ChangeColumnPosition(firstColumnId, newColumnPosition, manager.getOutputColumns());
+        ChangeColumnPosition changeColumnPositionRule = new ChangeColumnPosition(firstColumnId, newColumnPosition, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult, changeColumnPositionRule), true);
@@ -38,7 +38,7 @@ public class MergeColumnsIntegrationTest extends AbstractRuleTestRunner {
         int firstColumnId = 0;
         int secondColumnId = 1;
 
-        Clone cloneRule = new Clone(firstColumnId, manager.getOutputColumns());
+        Clone cloneRule = new Clone(firstColumnId, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult, cloneRule), true);
@@ -53,7 +53,7 @@ public class MergeColumnsIntegrationTest extends AbstractRuleTestRunner {
         int firstColumnId = 0;
         int secondColumnId = 1;
 
-        Delete deleteRule = new Delete(firstColumnId, manager.getOutputColumns());
+        Delete deleteRule = new Delete(firstColumnId, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult, deleteRule), true);
@@ -67,9 +67,9 @@ public class MergeColumnsIntegrationTest extends AbstractRuleTestRunner {
         };
         int firstColumnId = 0;
         int secondColumnId = 1;
-        int thirdColumnId = 2;
+        int thirdColumnId = 1;
 
-        MergeColumns mergeRule = new MergeColumns(firstColumnId, thirdColumnId, manager.getOutputColumns());
+        MergeColumns mergeRule = new MergeColumns(firstColumnId, thirdColumnId, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult, mergeRule), true);
@@ -82,10 +82,10 @@ public class MergeColumnsIntegrationTest extends AbstractRuleTestRunner {
         };
         int firstColumnId = 0;
         int secondColumnId = 1;
-        int condition = RegexUtil.CONTAINS;
+        int condition = RegexUtilConstants.CONTAINS;
         String searchData = "data";
 
-        RegexFilter regexRule = new RegexFilter(firstColumnId, condition, searchData, manager.getOutputColumns());
+        RegexFilter regexRule = new RegexFilter(firstColumnId, condition, searchData, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runMergeTest(firstColumnId, secondColumnId, csvDataResult, regexRule), true);

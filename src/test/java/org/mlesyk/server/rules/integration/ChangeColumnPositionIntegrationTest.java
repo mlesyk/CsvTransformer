@@ -2,6 +2,8 @@ package org.mlesyk.server.rules.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants;
+import org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants;
 import org.mlesyk.server.rules.*;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
@@ -31,10 +33,10 @@ public class ChangeColumnPositionIntegrationTest extends AbstractRuleTestRunner 
 
         int currentPosition = 0;
         int newPosition = 3;
-        String operation = MathUtil.DIVIDE;
+        String operation = MathUtilConstants.DIVIDE;
 
-        int calculateSecondColumnId = 1;
-        Calculate calculateRule = new Calculate(currentPosition, calculateSecondColumnId, operation, manager.getOutputColumns());
+        int calculateSecondColumnId = 0;
+        Calculate calculateRule = new Calculate(newPosition, calculateSecondColumnId, operation, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult, calculateRule), true);
@@ -50,7 +52,7 @@ public class ChangeColumnPositionIntegrationTest extends AbstractRuleTestRunner 
         int currentPosition = 0;
         int newPosition = 3;
 
-        Clone cloneRule = new Clone(currentPosition, manager.getOutputColumns());
+        Clone cloneRule = new Clone(newPosition, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult, cloneRule), true);
@@ -66,7 +68,7 @@ public class ChangeColumnPositionIntegrationTest extends AbstractRuleTestRunner 
         int currentPosition = 0;
         int newPosition = 3;
 
-        Delete deleteRule = new Delete(currentPosition, manager.getOutputColumns());
+        Delete deleteRule = new Delete(newPosition, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult, deleteRule), true);
@@ -92,7 +94,7 @@ public class ChangeColumnPositionIntegrationTest extends AbstractRuleTestRunner 
         int newPosition = 3;
         int conditionValue = 20;
 
-        MathFilter mathFilterRule = new MathFilter(currentPosition,MathUtil.GREATER,conditionValue, manager.getOutputColumns());
+        MathFilter mathFilterRule = new MathFilter(currentPosition,MathUtilConstants.GREATER,conditionValue, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult, mathFilterRule), true);
@@ -108,9 +110,9 @@ public class ChangeColumnPositionIntegrationTest extends AbstractRuleTestRunner 
         int currentPosition = 0;
         int newPosition = 3;
 
-        int secondColumnPosition = 1;
+        int secondColumnPosition = 0;
 
-        MergeColumns mergeRule = new MergeColumns(currentPosition, secondColumnPosition, manager.getOutputColumns());
+        MergeColumns mergeRule = new MergeColumns(newPosition, secondColumnPosition, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult, mergeRule), true);
@@ -127,7 +129,7 @@ public class ChangeColumnPositionIntegrationTest extends AbstractRuleTestRunner 
 
         String regexData = "colu";
 
-        RegexFilter regexRule = new RegexFilter(currentPosition, RegexUtil.BEGINS_WITH, regexData, manager.getOutputColumns());
+        RegexFilter regexRule = new RegexFilter(currentPosition, RegexUtilConstants.BEGINS_WITH, regexData, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runChangeColumnPositionTest(currentPosition, newPosition, csvDataResult, regexRule), true);

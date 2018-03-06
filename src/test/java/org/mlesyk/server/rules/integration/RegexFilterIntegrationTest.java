@@ -2,6 +2,8 @@ package org.mlesyk.server.rules.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants;
+import org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants;
 import org.mlesyk.server.rules.*;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
@@ -33,7 +35,7 @@ public class RegexFilterIntegrationTest extends AbstractRuleTestRunner {
 
         String condition = "\\d$";
 
-        Calculate calculateRule = new Calculate(firstColumnId, secondColumnId, MathUtil.ADD, manager.getOutputColumns());
+        Calculate calculateRule = new Calculate(firstColumnId, secondColumnId, MathUtilConstants.ADD, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runRegexTest(secondColumnId,condition,csvDataResult, calculateRule), true);
@@ -50,7 +52,7 @@ public class RegexFilterIntegrationTest extends AbstractRuleTestRunner {
 
         String condition = "\\d$";
 
-        ChangeColumnPosition positionRule = new ChangeColumnPosition(firstColumnId, newColumnId, manager.getOutputColumns());
+        ChangeColumnPosition positionRule = new ChangeColumnPosition(firstColumnId, newColumnId, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runRegexTest(firstColumnId,condition,csvDataResult, positionRule), true);
@@ -66,7 +68,7 @@ public class RegexFilterIntegrationTest extends AbstractRuleTestRunner {
 
         String condition = "\\d$";
 
-        Clone cloneRule = new Clone(firstColumnId, manager.getOutputColumns());
+        Clone cloneRule = new Clone(firstColumnId, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runRegexTest(firstColumnId,condition,csvDataResult, cloneRule), true);
@@ -92,9 +94,9 @@ public class RegexFilterIntegrationTest extends AbstractRuleTestRunner {
 
         String condition = "\\d+$";
         int mathConditionValue = 50;
-        String mathCondition = MathUtil.GREATER;
+        String mathCondition = MathUtilConstants.GREATER;
 
-        MathFilter mathFilterRule = new MathFilter(firstColumnId, mathCondition, mathConditionValue, manager.getOutputColumns());
+        MathFilter mathFilterRule = new MathFilter(firstColumnId, mathCondition, mathConditionValue, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runRegexTest(firstColumnId,condition,csvDataResult, mathFilterRule), true);
@@ -113,7 +115,7 @@ public class RegexFilterIntegrationTest extends AbstractRuleTestRunner {
 
         String condition = "\\d+$";
 
-        MergeColumns mergeRule = new MergeColumns(firstColumnId, secondColumnId, manager.getOutputColumns());
+        MergeColumns mergeRule = new MergeColumns(firstColumnId, secondColumnId, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runRegexTest(firstColumnId,condition,csvDataResult, mergeRule), true);
@@ -129,13 +131,13 @@ public class RegexFilterIntegrationTest extends AbstractRuleTestRunner {
 
         int firstColumnId = 0;
 
-        int condition1 = RegexUtil.BEGINS_WITH;
+        int condition1 = RegexUtilConstants.BEGINS_WITH;
         String conditionValue1 = "col";
-        int condition2 = RegexUtil.ENDS_WITH;
+        int condition2 = RegexUtilConstants.ENDS_WITH;
         String conditionValue2 = "1";
 
 
-        RegexFilter regexRule = new RegexFilter(firstColumnId, condition1, conditionValue1, manager.getOutputColumns());
+        RegexFilter regexRule = new RegexFilter(firstColumnId, condition1, conditionValue1, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runRegexTest(firstColumnId,condition2, conditionValue2,csvDataResult, regexRule), true);

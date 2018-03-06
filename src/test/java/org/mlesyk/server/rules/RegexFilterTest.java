@@ -2,6 +2,7 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.RegexUtil;
 
@@ -56,7 +57,7 @@ public class RegexFilterTest extends AbstractRuleTestRunner {
         String searchData = "ata";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.CONTAINS, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtilConstants.CONTAINS, searchData, csvDataResult), true);
     }
 
     @Test
@@ -68,7 +69,7 @@ public class RegexFilterTest extends AbstractRuleTestRunner {
         String searchData = "col";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.BEGINS_WITH, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtilConstants.BEGINS_WITH, searchData, csvDataResult), true);
     }
 
     @Test
@@ -80,7 +81,7 @@ public class RegexFilterTest extends AbstractRuleTestRunner {
         String searchData = "mn1";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.ENDS_WITH, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtilConstants.ENDS_WITH, searchData, csvDataResult), true);
     }
 
 
@@ -93,6 +94,6 @@ public class RegexFilterTest extends AbstractRuleTestRunner {
         String searchData = "data1";
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runRegexTest(columnPosition, RegexUtil.EQUALS, searchData, csvDataResult), true);
+        Assert.assertEquals(runRegexTest(columnPosition, RegexUtilConstants.EQUALS, searchData, csvDataResult), true);
     }
 }

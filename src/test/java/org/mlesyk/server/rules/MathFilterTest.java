@@ -2,6 +2,7 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
 
@@ -29,7 +30,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 50;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.GREATER, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.GREATER, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -51,7 +52,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 50;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.GREATER_EQUAL, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.GREATER_EQUAL, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -73,7 +74,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 50;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.LESSER, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.LESSER, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -95,7 +96,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.LESSER_EQUAL, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.LESSER_EQUAL, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -117,7 +118,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.EQUALS, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.EQUALS, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -139,7 +140,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.EQUALS2, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.EQUALS2, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -161,7 +162,7 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 20;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.NOT_EQUALS, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.NOT_EQUALS, conditionValue, csvDataResult), true);
     }
 
     @Test
@@ -183,6 +184,6 @@ public class MathFilterTest extends AbstractRuleTestRunner {
         double conditionValue = 500;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(columnId, MathUtil.NOT_EQUALS2, conditionValue, csvDataResult), true);
+        Assert.assertEquals(runMathFilterTest(columnId, MathUtilConstants.NOT_EQUALS2, conditionValue, csvDataResult), true);
     }
 }

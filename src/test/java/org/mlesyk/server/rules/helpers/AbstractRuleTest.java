@@ -46,7 +46,7 @@ public abstract class AbstractRuleTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        manager = new CsvManager(tempInput, tempOutput);
+        manager = new CsvManager(tempInput.getAbsolutePath(), tempOutput.getAbsolutePath());
     }
 
     @After
@@ -55,10 +55,10 @@ public abstract class AbstractRuleTest {
         tempOutput.delete();
     }
 
-    protected boolean testRule(AbstractRule rule, ResultColumn column, String[] expectedResult, AbstractRule... rules) {
+    protected boolean testRule(AbstractRule rule, String[] expectedResult, AbstractRule... rules) {
         boolean result = true;
-        column.addRule(rule);
-        column.addAllRules(rules);
+        manager.addRule(rule);
+        manager.addAllRules(rules);
         manager.writeOutputFile();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(manager.getOutputFilePath()))) {
             for(int i = 0; i < expectedResult.length; i++) {

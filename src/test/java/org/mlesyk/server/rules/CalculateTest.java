@@ -2,6 +2,7 @@ package org.mlesyk.server.rules;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
 
@@ -30,7 +31,7 @@ public class CalculateTest extends AbstractRuleTestRunner {
         int secondColumnId = 1;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.DIVIDE, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtilConstants.DIVIDE, csvDataResult), true);
     }
 
     @Test
@@ -53,7 +54,7 @@ public class CalculateTest extends AbstractRuleTestRunner {
         int secondColumnId = 3;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.MULTIPLY, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtilConstants.MULTIPLY, csvDataResult), true);
     }
 
     @Test
@@ -76,7 +77,7 @@ public class CalculateTest extends AbstractRuleTestRunner {
         int secondColumnId = 2;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.ADD, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtilConstants.ADD, csvDataResult), true);
     }
 
     @Test
@@ -99,7 +100,7 @@ public class CalculateTest extends AbstractRuleTestRunner {
         int secondColumnId = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.SUBTRACT, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtilConstants.SUBTRACT, csvDataResult), true);
     }
 
     @Test
@@ -122,6 +123,6 @@ public class CalculateTest extends AbstractRuleTestRunner {
         int secondColumnId = 0;
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtil.MOD, csvDataResult), true);
+        Assert.assertEquals(runCalculationTest(firstColumnId, secondColumnId, MathUtilConstants.MOD, csvDataResult), true);
     }
 }

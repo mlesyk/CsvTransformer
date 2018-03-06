@@ -2,6 +2,8 @@ package org.mlesyk.server.rules.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants;
+import org.mlesyk.gwt.csvdashboard.shared.RegexUtilConstants;
 import org.mlesyk.server.rules.*;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
@@ -31,11 +33,11 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         double conditionValue = 50;
         int columnPosition2 = 1;
 
-        Calculate calculateRule = new Calculate(filterColumnId, columnPosition2, MathUtil.ADD, manager.getOutputColumns());
+        Calculate calculateRule = new Calculate(filterColumnId, columnPosition2, MathUtilConstants.ADD, manager.getOutputColumns(),1);
 
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtil.GREATER, conditionValue, csvDataResult, calculateRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtilConstants.GREATER, conditionValue, csvDataResult, calculateRule), true);
     }
 
     @Test
@@ -57,11 +59,11 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         double conditionValue = 50;
         int newColumnPosition = 1;
 
-        ChangeColumnPosition changePositionRule = new ChangeColumnPosition(filterColumnId, newColumnPosition, manager.getOutputColumns());
+        ChangeColumnPosition changePositionRule = new ChangeColumnPosition(filterColumnId, newColumnPosition, manager.getOutputColumns(),1);
 
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtil.GREATER, conditionValue, csvDataResult, changePositionRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtilConstants.GREATER, conditionValue, csvDataResult, changePositionRule), true);
     }
 
     @Test
@@ -82,11 +84,11 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         int filterColumnId = 0;
         double conditionValue = 50;
 
-        Clone cloneRule = new Clone(filterColumnId, manager.getOutputColumns());
+        Clone cloneRule = new Clone(filterColumnId, manager.getOutputColumns(),1);
 
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtil.GREATER, conditionValue, csvDataResult, cloneRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtilConstants.GREATER, conditionValue, csvDataResult, cloneRule), true);
     }
 
     @Test
@@ -107,11 +109,11 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         int filterColumnId = 0;
         double conditionValue = 50;
 
-        Delete deleteRule = new Delete(filterColumnId, manager.getOutputColumns());
+        Delete deleteRule = new Delete(filterColumnId, manager.getOutputColumns(),1);
 
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtil.GREATER, conditionValue, csvDataResult, deleteRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtilConstants.GREATER, conditionValue, csvDataResult, deleteRule), true);
     }
 
     @Test
@@ -136,11 +138,11 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         double conditionValue2 = 600;
 
 
-        MathFilter mathFilterRule = new MathFilter(filterColumnId2, MathUtil.LESSER, conditionValue2, manager.getOutputColumns());
+        MathFilter mathFilterRule = new MathFilter(filterColumnId2, MathUtilConstants.LESSER, conditionValue2, manager.getOutputColumns(),1);
 
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId1, MathUtil.GREATER, conditionValue1, csvDataResult, mathFilterRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId1, MathUtilConstants.GREATER, conditionValue1, csvDataResult, mathFilterRule), true);
     }
 
     @Test
@@ -162,11 +164,11 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         double conditionValue = 50;
         int mergeColumnId = 1;
 
-        MergeColumns mergeRule = new MergeColumns(filterColumnId, mergeColumnId, manager.getOutputColumns());
+        MergeColumns mergeRule = new MergeColumns(filterColumnId, mergeColumnId, manager.getOutputColumns(),1);
 
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtil.GREATER, conditionValue, csvDataResult, mergeRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtilConstants.GREATER, conditionValue, csvDataResult, mergeRule), true);
     }
 
     @Test
@@ -188,12 +190,12 @@ public class MathFilterIntegrationTest extends AbstractRuleTestRunner {
         int filterColumnId = 0;
         double conditionValue = 50;
         int regexColumnId = 2;
-        int regexCondition = RegexUtil.ENDS_WITH;
+        int regexCondition = RegexUtilConstants.ENDS_WITH;
         String regexData = "5";
 
-        RegexFilter regexRule = new RegexFilter(regexColumnId, regexCondition, regexData, manager.getOutputColumns());
+        RegexFilter regexRule = new RegexFilter(regexColumnId, regexCondition, regexData, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
-        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtil.GREATER, conditionValue, csvDataResult, regexRule), true);
+        Assert.assertEquals(runMathFilterTest(filterColumnId, MathUtilConstants.GREATER, conditionValue, csvDataResult, regexRule), true);
     }
 }

@@ -2,6 +2,7 @@ package org.mlesyk.server.rules.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mlesyk.gwt.csvdashboard.shared.MathUtilConstants;
 import org.mlesyk.server.rules.*;
 import org.mlesyk.server.rules.helpers.AbstractRuleTestRunner;
 import org.mlesyk.server.utils.MathUtil;
@@ -19,7 +20,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
         };
         int columnPosition = 0;
         String regex = "([0-9]+)";
-        RegexFilter regexRule = new RegexFilter(columnPosition,regex, manager.getOutputColumns());
+        RegexFilter regexRule = new RegexFilter(columnPosition,regex, manager.getOutputColumns(),1);
 
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, regexRule), true);
@@ -33,7 +34,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
         };
         int columnPosition = 0;
         int newPosition = 4;
-        ChangeColumnPosition positionRule = new ChangeColumnPosition(columnPosition, newPosition, manager.getOutputColumns() );
+        ChangeColumnPosition positionRule = new ChangeColumnPosition(columnPosition, newPosition, manager.getOutputColumns(),1 );
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, positionRule), true);
     }
@@ -45,7 +46,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
                 "data1 data1,data2,data3,data4"
         };
         int columnPosition = 0;
-        MergeColumns mergeRule = new MergeColumns(columnPosition, columnPosition + 1, manager.getOutputColumns() );
+        MergeColumns mergeRule = new MergeColumns(columnPosition, columnPosition + 1, manager.getOutputColumns(),1 );
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, mergeRule), true);
     }
@@ -57,7 +58,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
                 "data1,data2,data3,data4"
         };
         int columnPosition = 0;
-        Delete deleteRule = new Delete(columnPosition, manager.getOutputColumns());
+        Delete deleteRule = new Delete(columnPosition, manager.getOutputColumns(),1);
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, deleteRule), true);
 
@@ -70,7 +71,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
                 "data1,data1,data1,data2,data3,data4"
         };
         int columnPosition = 0;
-        Clone cloneRule = new Clone(columnPosition, manager.getOutputColumns());
+        Clone cloneRule = new Clone(columnPosition, manager.getOutputColumns(),1);
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, cloneRule), true);
 
@@ -95,7 +96,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
         };
         int columnPosition1 = 0;
         int columnPosition2 = 1;
-        Calculate calculateRule = new Calculate(columnPosition1, columnPosition2, MathUtil.ADD, manager.getOutputColumns());
+        Calculate calculateRule = new Calculate(columnPosition1, columnPosition2, MathUtilConstants.ADD, manager.getOutputColumns(),1);
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition1, csvDataResult, calculateRule), true);
 
@@ -119,7 +120,7 @@ public class CloneIntegrationTest extends AbstractRuleTestRunner {
         };
         int columnPosition = 0;
         int conditionValue = 20;
-        MathFilter mathFilterRule = new MathFilter(columnPosition, MathUtil.GREATER, conditionValue , manager.getOutputColumns());
+        MathFilter mathFilterRule = new MathFilter(columnPosition, MathUtilConstants.GREATER, conditionValue , manager.getOutputColumns(),1);
         System.out.println("Test " + new Object(){}.getClass().getEnclosingMethod().getName());
         Assert.assertEquals(runCloneTest(columnPosition, csvDataResult, mathFilterRule), true);
 
